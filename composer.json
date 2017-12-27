@@ -3,5 +3,10 @@
         "psr-4": {
             "Nbj\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     }
 }
