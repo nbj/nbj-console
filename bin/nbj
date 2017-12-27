@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 
+use Nbj\Console\Command\NewProject;
 use Symfony\Component\Console\Application;
 
 require 'vendor/autoload.php';
@@ -23,6 +24,7 @@ $app->setName($logo);
 $app->setVersion($version);
 
 // Register commands
+$app->add(new NewProject);
 
 // Run the application
 $app->run();
