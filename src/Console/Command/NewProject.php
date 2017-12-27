@@ -151,33 +151,51 @@ class NewProject extends Command
     {
         // Setup project directory
         $projectDir = sprintf("%s/%s", getcwd(), $this->projectName);
+        $output->writeln('Creating project folder: ' . $projectDir);
 
         mkdir($projectDir);
         chdir($projectDir);
 
+        $output->writeln('Creating .gitignore file');
+        $fileContent = file_get_contents(STUBS_PATH . '/gitignore');
+        file_put_contents('.gitignore', $fileContent, FILE_BINARY);
+
         // Create namespace stub in composer.json
         if ($this->namespace) {
+            $output->writeln('Setting up namespace: ' . $this->namespace . ' in src/');
             $this->composerJsonStructure['autoload']['psr-4'] = [
                 $this->namespace => 'src/'
             ];
+
+            mkdir($projectDir . '/src');
         }
 
         // Create test namespace stub in composer.json
         if ($this->useTesting) {
+            $output->writeln('Setting up testing in tests/ using PHPUnit');
             $this->composerJsonStructure['autoload-dev']['psr-4'] = [
                 'Tests\\' => 'tests/'
             ];
 
             $this->composerJsonStructure['require-dev']['phpunit/phpunit'] = '*';
 
+            $output->writeln('Creating phpunit.xml config file');
             $fileContent = file_get_contents(STUBS_PATH . '/phpunit');
             file_put_contents('phpunit.xml', $fileContent, FILE_BINARY);
+
+            $output->writeln('Making folder tests/Unit');
+            mkdir($projectDir . '/tests/Unit', 0777, true);
+
+            $output->writeln('Making folder tests/Feature');
+            mkdir($projectDir . '/tests/Feature', 0777, true);
         }
 
         // Create test namespace stub in composer.json
         if ($this->usePHPCSFixer) {
+            $output->writeln('Setting up PHP Code fixer');
             $this->composerJsonStructure['require-dev']['friendsofphp/php-cs-fixer'] = '*';
 
+            $output->writeln('Creating .php_cs config file');
             $fileContent = file_get_contents(STUBS_PATH . '/php_cs_fixer');
             file_put_contents('.php_cs', $fileContent, FILE_BINARY);
         }
@@ -190,6 +208,10 @@ class NewProject extends Command
 
         $composerJsonContent = json_encode($this->composerJsonStructure, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
+        $output->writeln('Writing composer.json file');
         file_put_contents('composer.json', $composerJsonContent, FILE_BINARY);
+
+        $output->writeln('Run composer install');
+        `composer install`;
     }
 }
