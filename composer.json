@@ -1,4 +1,8 @@
 {
+    "name": "nbj/nbj-console",
+    "description": "Personal utility for creation of stuff",
+    "license": "MIT",
+    "type": "utility",
     "autoload": {
         "psr-4": {
             "Nbj\\": "src/"
