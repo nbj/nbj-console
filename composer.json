@@ -6,5 +6,8 @@
     },
     "require": {
         "symfony/console": "^4.0"
-    }
+    },
+    "bin": [
+        "bin/nbj"
+    ]
 }
