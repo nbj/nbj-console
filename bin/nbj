@@ -1,8 +1,11 @@
 #!/usr/bin/env php
 <?php
 
+use Symfony\Component\Console\Application;
+
 require 'vendor/autoload.php';
 
+$version = '0.0.1';
 $logo = " ███▄    █  ▄▄▄▄   ▄▄▄██▀▀▀    ▄████▄   ▒█████   ███▄    █   ██████  ▒█████   ██▓    ▓█████ 
  ██ ▀█   █ ▓█████▄   ▒██      ▒██▀ ▀█  ▒██▒  ██▒ ██ ▀█   █ ▒██    ▒ ▒██▒  ██▒▓██▒    ▓█   ▀ 
 ▓██  ▀█ ██▒▒██▒ ▄██  ░██      ▒▓█    ▄ ▒██░  ██▒▓██  ▀█ ██▒░ ▓██▄   ▒██░  ██▒▒██░    ▒███   
@@ -14,7 +17,12 @@ $logo = " ███▄    █  ▄▄▄▄   ▄▄▄██▀▀▀    ▄█
          ░  ░      ░   ░      ░ ░          ░ ░           ░       ░      ░ ░      ░  ░   ░  ░
                  ░            ░ <comment>version</comment>";
 
-$app = new \Symfony\Component\Console\Application;
-$app->setVersion('0.0.1');
+// Setup application
+$app = new Application;
 $app->setName($logo);
+$app->setVersion($version);
+
+// Register commands
+
+// Run the application
 $app->run();
