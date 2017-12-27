@@ -8,5 +8,8 @@
         "psr-4": {
             "Tests\\": "tests/"
         }
+    },
+    "require": {
+        "symfony/console": "^4.0"
     }
 }
