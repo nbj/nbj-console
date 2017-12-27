@@ -1,4 +1,7 @@
 {
+    "name": "nbj/nbj-console",
+    "license": "MIT",
+    "type": "utility"
     "autoload": {
         "psr-4": {
             "Nbj\\": "src/"
