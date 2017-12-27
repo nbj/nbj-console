@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+define('STUBS_PATH', dirname(__DIR__) . '/stubs');
+
 use Nbj\Console\Command\NewProject;
 use Symfony\Component\Console\Application;
 
