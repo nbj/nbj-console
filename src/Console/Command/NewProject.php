@@ -80,7 +80,7 @@ class NewProject extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      *
-     * @return void null or 0 if everything went fine, or an error code
+     * @return int
      *
      * @see setCode()
      */
@@ -107,6 +107,8 @@ class NewProject extends Command
         }
 
         $this->generateProject($input, $output);
+
+        return 0;
     }
 
     /**
@@ -158,7 +160,7 @@ class NewProject extends Command
 
         $output->writeln('Creating .gitignore file');
         $fileContent = file_get_contents(STUBS_PATH . '/gitignore');
-        file_put_contents('.gitignore', $fileContent, FILE_BINARY);
+        file_put_contents('.gitignore', $fileContent);
 
         // Create namespace stub in composer.json
         if ($this->namespace) {
@@ -181,7 +183,7 @@ class NewProject extends Command
 
             $output->writeln('Creating phpunit.xml config file');
             $fileContent = file_get_contents(STUBS_PATH . '/phpunit');
-            file_put_contents('phpunit.xml', $fileContent, FILE_BINARY);
+            file_put_contents('phpunit.xml', $fileContent);
 
             $output->writeln('Making folder tests/Unit');
             mkdir($projectDir . '/tests/Unit', 0777, true);
@@ -197,7 +199,7 @@ class NewProject extends Command
 
             $output->writeln('Creating .php_cs config file');
             $fileContent = file_get_contents(STUBS_PATH . '/php_cs_fixer');
-            file_put_contents('.php_cs', $fileContent, FILE_BINARY);
+            file_put_contents('.php-cs-fixer.php', $fileContent);
         }
 
         foreach ($this->composerJsonStructure as $key => $value) {
@@ -209,7 +211,7 @@ class NewProject extends Command
         $composerJsonContent = json_encode($this->composerJsonStructure, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
         $output->writeln('Writing composer.json file');
-        file_put_contents('composer.json', $composerJsonContent, FILE_BINARY);
+        file_put_contents('composer.json', $composerJsonContent);
 
         $output->writeln('Run composer install');
         `composer install`;
